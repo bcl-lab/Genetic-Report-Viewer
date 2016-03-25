@@ -1,0 +1,78 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+
+    <title>FHIR Genomics Viewer</title>
+
+    <link href="//maxcdn.bootstrapcdn.com/bootstrap/3.3.2/css/bootstrap.min.css" rel="stylesheet">
+    <style>
+      body {
+        padding-top: 20px;
+        padding-bottom: 20px;
+      }
+
+      .navbar {
+        margin-bottom: 20px;
+      }
+    </style>
+  </head>
+
+  <body>
+
+    <div class="container">
+      <nav class="navbar navbar-default">
+      <div class="container-fluid">
+        <div class="navbar-header">
+          <a class="navbar-brand" href="#">FHIR Genomics Viewer</a>
+        </div>
+        <div id="navbar" class="navbar-collapse collapse">
+          <ul class="nav navbar-nav">
+            <li class="dropdown">
+            <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false">{{ resourceType }}<span class="caret"></span></a>
+            <ul class="dropdown-menu" role="menu">
+              <li><a href="/resources/Patient">Patient</a></li>
+            </ul>
+            </li>
+          </ul>
+        </div>
+      </div>
+      </nav>
+      {% if entry %}
+      <table class="table">
+        <tr>
+          <th>Patient</th>
+          <th>Report</th>
+        </tr>
+        {% for resource in entry %}
+        <tr>
+
+          <td>
+          {% if resource.resource.text %}
+            {{ resource.resource.text.div|safe }}
+          {% else %}
+            N/A
+          {% endif %}
+          </td>
+          <td>{{ resource['resource'].id|safe }}</td>
+        </tr>
+        {% endfor %}
+      </table>
+      {% else %}
+      <div class="jumbotron">
+        <h2>No resources found</h2>
+      </div>
+      {% endif %}
+      {% if is_single_resource %}
+        <pre><code>{{ code_snippet|safe }}</code></pre>
+      {% endif %}
+    </div>
+
+
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.2/jquery.min.js"></script>
+    <script src="//maxcdn.bootstrapcdn.com/bootstrap/3.3.2/js/bootstrap.min.js"></script>
+  </body>
+</html>
+

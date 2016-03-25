@@ -1,0 +1,90 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+
+    <title>FHIR Genomics Viewer</title>
+
+    <link href="//maxcdn.bootstrapcdn.com/bootstrap/3.3.2/css/bootstrap.min.css" rel="stylesheet">
+    <style>
+      body {
+        padding-top: 20px;
+        padding-bottom: 20px;
+      }
+
+      .navbar {
+        margin-bottom: 20px;
+      }
+    </style>
+  </head>
+
+  <body>
+
+    <div class="container">
+      <nav class="navbar navbar-default">
+      <div class="container-fluid">
+        <div class="navbar-header">
+          <a class="navbar-brand" href="#">FHIR Genomics Viewer</a>
+        </div>
+        <div id="navbar" class="navbar-collapse collapse">
+          <ul class="nav navbar-nav">
+            <li class="dropdown">
+            <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false">{{ resourceType }}<span class="caret"></span></a>
+            <ul class="dropdown-menu" role="menu">
+              <li><a href="/resources/Patient">Patient</a></li>
+            </ul>
+            </li>
+          </ul>
+        </div>
+      </div>
+      </nav>
+    <h3>Genetics Report for {{ name }}</h3>
+    <p>{{ gender }}, patient Id: {{ id }}</p>
+    <h4>Clinical Context</h4>
+    <p>Diseases:
+        {% for i in condition %}
+        {{ i }}
+        {% endfor %}
+    </p>
+    <h4>Genetics Information</h4>
+        {% for i in range (0, total) %}
+        <h5> Variation {{ i + 1}} </h5>
+        <table class="table">
+        <tr>
+          <th>Element</th>
+          <th>Value</th>
+        </tr>
+        <tr>
+          <td>source</td>
+          <td>{{ source[i] }}</td>
+        </tr>
+        <tr>
+          <td>gene</td>
+          <td>{{ gene[i] }}</td>
+        </tr>
+        <tr>
+          <td>variation</td>
+          <td>{{ variation[i] }}</td>
+        </tr>
+        <tr>
+          <td>coordinate</td>
+          <td>{{ coordinate[i] }}</td>
+        </tr>
+        <tr>
+          <td>status</td>
+          <td>{{ status[i] }}</td>
+        </tr>
+        <tr>
+          <td>frequency</td>
+          <td>{{ frequency[i] }}</td>
+        </tr>
+        </table>
+        {% endfor %}
+
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.2/jquery.min.js"></script>
+    <script src="//maxcdn.bootstrapcdn.com/bootstrap/3.3.2/js/bootstrap.min.js"></script>
+  </body>
+</html>
+
